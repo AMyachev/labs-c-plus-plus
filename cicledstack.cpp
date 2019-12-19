@@ -5,6 +5,12 @@
 #include "ciclestack.h"
 #include <string>
 using namespace std;
+class IndexOutOfRange : public std::exception {
+public:
+	const char* what() const noexcept {
+		return "Index out of range\n";
+	}
+};
 struct Mystruct
 {
 	string name;
@@ -52,7 +58,7 @@ int main()
 	train1 = train0;
 	
 	while (true) {
-		cout << "MENU\n1-ADD ELEMENT\n2-SHOW ELEMENTS\n3-DELETE ELEMENT\n4-SEARCH FOR ELEMENT\n5-SHOW NUMBERED ELEMENT\n6-POP FIRST ELEMENT\n0-EXIT\n";
+		cout << "MENU\n1-ADD ELEMENT\n2-SHOW ELEMENTS\n3-DELETE ELEMENT\n4-SEARCH FOR ELEMENT\n5-SHOW NUMBERED ELEMENT\n6-POP FIRST ELEMENT\n7-SEARCH FOR ELEMENT BY ID\n0-EXIT\n";
 		cin >> n;
 		switch (n)
 		{
@@ -103,6 +109,19 @@ int main()
 				trainstack->pop_first();
 			}
 			break;
+		case 7:
+			cout << "ID:";
+			cin >> number;
+			try { 
+				if (number < 0) {
+					throw IndexOutOfRange();
+				} 
+				trainstack->get_elem(number)->out(); 
+			}
+			catch (IndexOutOfRange e) {
+				cout << e.what();
+			}
+			break;
 		case 0:
 			exit(0);
 			break;
@@ -114,6 +133,4 @@ int main()
 	}
 	
 }
-
-
 
