@@ -65,7 +65,7 @@ int main()
 			trainstack->push_first(mytrain);
 			break;
 		case 2:
-			for (int i = 0; i < trainstack->length; i++) {
+			for (int i = 0; i < trainstack->get_length(); i++) {
 				trainstack->get_elem(i)->out();
 			}
 			break;
@@ -73,7 +73,7 @@ int main()
 			cout << "NAME:";
 			cin >> s;
 			counter = 0;
-			for (int i = 0; i < trainstack->length; i++) {
+			for (int i = 0; i < trainstack->get_length(); i++) {
 				if (trainstack->get_elem(i)->get_name() == s) {
 					trainstack->deleteelem(i);
 					counter++;
@@ -86,7 +86,7 @@ int main()
 		case 4:
 			cout << "NAME:";
 			cin >> s;
-			for (int i = 0; i < trainstack->length; i++) {
+			for (int i = 0; i < trainstack->get_length(); i++) {
 				if (trainstack->get_elem(i)->get_name() == s) {
 					trainstack->get_elem(i)->out();
 				}
@@ -98,7 +98,7 @@ int main()
 			trainstack->get_elem(number)->out();
 			break;
 		case 6:
-			if (trainstack->length > 0) {
+			if (trainstack->get_length() > 0) {
 				trainstack->get_first()->out();
 				trainstack->pop_first();
 			}
@@ -114,4 +114,6 @@ int main()
 	}
 	
 }
+
+
 
