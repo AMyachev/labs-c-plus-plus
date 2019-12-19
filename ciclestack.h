@@ -48,15 +48,18 @@ public:
 			last_elem()->nextnode = first;
 		}
 		length++;
-		delete node;
+		
 	}
 	T* pop_first() {
 		T* firstinfo;
+		Node *myfirst;
 		if (length > 0) {
 			firstinfo = &(first->info);
+			myfirst = first;
 			first = first->nextnode;
 			length--;
 			last_elem()->nextnode = first;
+			delete myfirst;
 			return firstinfo;
 		}
 		else return NULL;
@@ -72,8 +75,8 @@ public:
 	void deleteelem(int index) {
 		Node *predsearch=first;
 		Node *search = first;
-		int i;
-		if (i == 0) {
+		int i=0;
+		if (index == 0) {
 			pop_first();
 		}
 		else {
@@ -111,6 +114,3 @@ public:
 		delete search;
 	}
 };
-
-
-
