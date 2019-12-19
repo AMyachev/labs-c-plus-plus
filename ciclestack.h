@@ -1,7 +1,13 @@
 #pragma once
 #include <iostream>
 template <typename T>  class ciclestack
-{	typedef struct Node
+{
+	class IndexOutOfRange : public std::exception {
+		const char* what() const noexcept {
+			return "Index out of range";
+		}
+	};
+	typedef struct Node
 	{
 		Node* nextnode;
 		T info;
@@ -21,7 +27,7 @@ public:
 	T* get_elem(int index) {
 		Node *search=first;
 		try {
-			if (length < 0) {
+			if (index < 0) {
 				throw;
 			}
 			for (int i = 0; i!=index; i++) {
@@ -81,7 +87,7 @@ public:
 		}
 		else {
 			try {
-				if (length < 0) {
+				if (index < 0) {
 					throw;
 				}
 				for (i = 0; i != index; i++) {
@@ -89,11 +95,10 @@ public:
 				search = search->nextnode;
 				}
 			}
-			catch (int e) {
-				std::cout << "INDEX ERROR";
+			catch (IndexOutOfRange e) {
+				e.what();
 				return;
 			}
-			
 				length--;
 				predsearch->nextnode = search->nextnode;
 		}
@@ -114,3 +119,4 @@ public:
 		delete search;
 	}
 };
+
