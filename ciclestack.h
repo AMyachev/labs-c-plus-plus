@@ -2,11 +2,7 @@
 #include <iostream>
 template <typename T>  class ciclestack
 {
-	class IndexOutOfRange : public std::exception {
-		const char* what() const noexcept {
-			return "Index out of range";
-		}
-	};
+	
 	typedef struct Node
 	{
 		Node* nextnode;
@@ -26,19 +22,9 @@ public:
 	int get_length() { return length; }
 	T* get_elem(int index) {
 		Node *search=first;
-		try {
-			if (index < 0) {
-				throw;
-			}
-			for (int i = 0; i!=index; i++) {
+		for (int i = 0; i != index; i++) {
 			search = search->nextnode;
-			}
 		}
-		catch (int e) {
-			std::cout << "INDEX ERROR";
-			return NULL;
-		}
-		
 		return &(search->info);
 	}
 	void push_first(const T &info) {
@@ -86,19 +72,10 @@ public:
 			pop_first();
 		}
 		else {
-			try {
-				if (index < 0) {
-					throw;
-				}
-				for (i = 0; i != index; i++) {
+			for (i = 0; i != index; i++) {
 				predsearch = search;
 				search = search->nextnode;
 				}
-			}
-			catch (IndexOutOfRange e) {
-				e.what();
-				return;
-			}
 				length--;
 				predsearch->nextnode = search->nextnode;
 		}
