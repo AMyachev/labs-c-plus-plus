@@ -5,95 +5,112 @@ template <typename T>  class ciclestack
 	{
 		Node* nextnode;
 		T info;
-		T infoout() {
-			return info;
+		Node(T info) {
+			this->info = info;
 		}
-		int a;
 	};
 private:
-	int i;
 	Node *first;
+	int length;
 public:
 	T* get_first() {
 		return &(first->info);
 	}
-	int length;
+	
+	int get_length() { return length; }
 	T* get_elem(int index) {
 		Node *search=first;
-
-		if (index >= length && index < 0) {
+		try {
+			if (length < 0) {
+				throw;
+			}
+			for (int i = 0; i!=index; i++) {
+			search = search->nextnode;
+			}
+		}
+		catch (int e) {
 			std::cout << "INDEX ERROR";
-			
 			return NULL;
 		}
-		for (i = 0; i!=index; i++) {
-			search = search->nextnode;
-		}
+		
 		return &(search->info);
 	}
 	void push_first(const T &info) {
-		
-		T newt = info;
-		Node *stakan;
-		Node *node = new Node();
+		Node *node = new Node(info);
 		if (length == 0) {
-		//	last = node;
 			first = node;
+			first->nextnode = first;
+
 		}
-		node->nextnode = first;
-		node->info = info;
-		first = node;
-		stakan = first;
-		for (i = 0; i < length; i++) {
-			stakan = stakan->nextnode;
+		else {
+			node->nextnode = first;
+			first = node;
+			last_elem()->nextnode = first;
 		}
-		stakan->nextnode = first;
-		//last->nextnode=first;
 		length++;
-		//std::cout << node.info;
-		
+		delete node;
 	}
 	T* pop_first() {
-		T firstinfo;
-		Node *stakan;
+		T* firstinfo;
 		if (length > 0) {
-			firstinfo = first->info;
+			firstinfo = &(first->info);
 			first = first->nextnode;
 			length--;
-			//this->get_elem(length)->nextnode = first;
-			stakan = first;
-			for (i = 0; i < length; i++) {
-				stakan = stakan->nextnode;
-			}
-			stakan->nextnode = first;
-			//last->nextnode = first;
-			return &firstinfo;
+			last_elem()->nextnode = first;
+			return firstinfo;
 		}
 		else return NULL;
 	}
+	Node* last_elem() {
+		Node *last = first;
+		for (int i = 0; i < length; i++) {
+			last = last->nextnode;
+		}
+		return last;
+	}
+	
 	void deleteelem(int index) {
 		Node *predsearch=first;
 		Node *search = first;
+		int i;
 		if (i == 0) {
 			pop_first();
 		}
 		else {
-			if (index >= length && index < 0) {
-				std::cout << "INDEX ERROR";
-			}
-			for (i = 0; i != index; i++) {
+			try {
+				if (length < 0) {
+					throw;
+				}
+				for (i = 0; i != index; i++) {
 				predsearch = search;
 				search = search->nextnode;
+				}
 			}
-			length--;
-			predsearch->nextnode = search->nextnode;
+			catch (int e) {
+				std::cout << "INDEX ERROR";
+				return;
+			}
+			
+				length--;
+				predsearch->nextnode = search->nextnode;
 		}
 	}
 	ciclestack() {
 		first = nullptr;
-		//last = nullptr;
+	
 		length = 0;
 	};
-	~ciclestack();
+	~ciclestack() {
+		Node *predsearch = first;
+		Node *search = first;
+		for (int i = 0; i < length-1; i++) {
+			predsearch = search;
+			search = search->nextnode();
+			delete predsearch;
+		}
+		delete search;
+	}
 };
+
+
 
