@@ -1,0 +1,15 @@
+﻿  cicledstack.cpp
+c:\users\holck\source\repos\cicledstack\cicledstack\ciclestack.h(12): warning C4091: typedef : пропускается слева от "ciclestack<T>::Node", когда ни одна переменная не объявлена
+  c:\users\holck\source\repos\cicledstack\cicledstack\ciclestack.h(98): note: выполняется компиляция ссылки на экземпляр шаблон класс "ciclestack<T>"
+c:\users\holck\source\repos\cicledstack\cicledstack\ciclestack.h(12): warning C4091: typedef : пропускается слева от "ciclestack<int>::Node", когда ни одна переменная не объявлена
+  c:\users\holck\source\repos\cicledstack\cicledstack\cicledstack.cpp(45): note: выполняется компиляция ссылки на экземпляр шаблон класс "ciclestack<int>"
+c:\users\holck\source\repos\cicledstack\cicledstack\ciclestack.h(12): warning C4091: typedef : пропускается слева от "ciclestack<Mystruct>::Node", когда ни одна переменная не объявлена
+  c:\users\holck\source\repos\cicledstack\cicledstack\cicledstack.cpp(46): note: выполняется компиляция ссылки на экземпляр шаблон класс "ciclestack<Mystruct>"
+c:\users\holck\source\repos\cicledstack\cicledstack\ciclestack.h(12): warning C4091: typedef : пропускается слева от "ciclestack<train>::Node", когда ни одна переменная не объявлена
+  c:\users\holck\source\repos\cicledstack\cicledstack\cicledstack.cpp(47): note: выполняется компиляция ссылки на экземпляр шаблон класс "ciclestack<train>"
+  ciclestack.cpp
+c:\users\holck\source\repos\cicledstack\cicledstack\ciclestack.h(12): warning C4091: typedef : пропускается слева от "ciclestack<T>::Node", когда ни одна переменная не объявлена
+  c:\users\holck\source\repos\cicledstack\cicledstack\ciclestack.h(98): note: выполняется компиляция ссылки на экземпляр шаблон класс "ciclestack<T>"
+  Создание кода...
+c:\users\holck\source\repos\cicledstack\cicledstack\ciclestack.h(70): warning C4172: возвращение адреса локальной или временной переменной : firstinfo
+  cicledstack.vcxproj -> C:\Users\holck\source\repos\cicledstack\Debug\cicledstack.exe
