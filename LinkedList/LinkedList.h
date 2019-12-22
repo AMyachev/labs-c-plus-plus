@@ -6,94 +6,70 @@ template<typename T> class LinkedList
 		list* left;
 		T* value;
 		list* right;
-		list() {
-
-		}
 	};
-	list* first_element;
-	list* last_element;
-	list* pointer;
-	list* get_elem(int index) {
+	list* startElement;
+	list* get_elem(int index, list* pointer) {
 		if (index == 0) {
-			list* value = pointer;
-			pointer = first_element;
-			return value;
+			return pointer;
 		}
 		else if (index < 0) {
 			pointer = pointer->left;
-			return get_elem(index+1);
+			return get_elem(index+1,pointer);
 		}
 		else {
 			pointer = pointer->right;
-			return get_elem(index-1);
+			return get_elem(index-1,pointer);
 		}
 	}
 public:
 	LinkedList() {
-		first_element = new list();
-		first_element->left = first_element;
-		first_element->right = first_element;
-		last_element = first_element;
-		pointer = first_element;
+		startElement = new list();
+		startElement->left = startElement;
+		startElement->right = startElement;
+		startElement = startElement;
 		size = 0;
-	}
-	void push_back(T* value) {
-		if(size==0)
-		last_element->value = value;
-		else {
-			last_element->right = new list();
-			list* temp = last_element;
-			last_element = last_element->right;
-			last_element->value = value;
-			last_element->left = temp;
-			last_element->right = first_element;
-			first_element->left = last_element;
-		}
-		size++;
 	}
 	void push(T* value) {
 		if (size == 0)
-			first_element->value = value;
+			startElement->value = value;
 		else {
-			first_element->left = new list();
-			list* temp = first_element;
-			first_element = first_element->left;
-			first_element->value = value;
-			first_element->right = temp;
-			first_element->left = last_element;
-			last_element->right = first_element;
-			pointer = first_element;
+			list* temp = startElement->left;
+			startElement->left = new list();
+			startElement->left->value = value;
+			startElement->left->right = startElement;
+			startElement->left->left = temp;
+			temp->right = startElement->left;
 		}
 		size++;
 	}
 	void insert(int pos, T* value) {
 		list* new_list = new list();
-		list* temp = get_elem(pos);
-		list* temp_left = temp->left;
-		temp->left = new_list;
-		temp->left->value = value;
-		temp->left->left = temp_left;
-		temp->left->right = temp;
-		temp_left->right = temp->left;
+		list* temp = get_elem(pos, startElement);
+		new_list->value = temp->value;
+		temp->value = value;
+		new_list->right = temp->right;
+		new_list->left = temp;
+		temp->right = new_list;
+		new_list->right->left = new_list;
+		size++;
 	}
 	void erase(int index) {
 		if (size == 0)return;
-		list* searching_elem = get_elem(index);
+		list* searching_elem = get_elem(index, startElement);
 		list* temp = searching_elem;
 		temp->left->right = temp->right;
 		temp->right->left = temp->left;
-		if (temp == first_element) {
-			first_element = temp->right;
-			pointer = first_element;
+		if (temp == startElement) {
+			startElement = temp->right;
 		}
-		if (temp == last_element) {
-			last_element = temp->left;
+		if (temp == startElement) {
+			startElement = temp->left;
 		}
 		delete(temp);
 		size--;
 	}
 	T* operator [](int index) {
-		return(get_elem(index)->value);
+		return(get_elem(index, startElement)->value);
 	}
 	~LinkedList() {
 		for (int i = 0; i < size; i++) {
