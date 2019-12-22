@@ -29,28 +29,27 @@ public:
 		startElement = startElement;
 		size = 0;
 	}
+	void addNode(list* left, list* right, T* value) {
+		list* new_list = new list();
+		new_list->value = value;
+		new_list->left = left;
+		new_list->right = right;
+		left->right = new_list;
+		right->left = new_list;
+	}
 	void push(T* value) {
 		if (size == 0)
 			startElement->value = value;
 		else {
-			list* temp = startElement->left;
-			startElement->left = new list();
-			startElement->left->value = value;
-			startElement->left->right = startElement;
-			startElement->left->left = temp;
-			temp->right = startElement->left;
+			addNode(startElement->left, startElement, value);
 		}
 		size++;
 	}
 	void insert(int pos, T* value) {
 		list* new_list = new list();
 		list* temp = get_elem(pos, startElement);
-		new_list->value = temp->value;
+		addNode(temp, temp->right, temp->value);
 		temp->value = value;
-		new_list->right = temp->right;
-		new_list->left = temp;
-		temp->right = new_list;
-		new_list->right->left = new_list;
 		size++;
 	}
 	void erase(int index) {
@@ -61,9 +60,6 @@ public:
 		temp->right->left = temp->left;
 		if (temp == startElement) {
 			startElement = temp->right;
-		}
-		if (temp == startElement) {
-			startElement = temp->left;
 		}
 		delete(temp);
 		size--;
