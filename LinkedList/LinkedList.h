@@ -9,25 +9,17 @@ template<typename T> class LinkedList
 	};
 	list* startElement;
 	list* get_elem(int index, list* pointer) {
-		if (index == 0) {
-			return pointer;
-		}
-		else if (index < 0) {
+		while (index != 0) {
+			if (index < 0) {
 			pointer = pointer->left;
-			return get_elem(index+1,pointer);
-		}
-		else {
+			index++;
+			}
+			else {
 			pointer = pointer->right;
-			return get_elem(index-1,pointer);
+			index--;
+			}
 		}
-	}
-public:
-	LinkedList() {
-		startElement = new list();
-		startElement->left = startElement;
-		startElement->right = startElement;
-		startElement = startElement;
-		size = 0;
+		return pointer;
 	}
 	void addNode(list* left, list* right, T* value) {
 		list* new_list = new list();
@@ -36,6 +28,14 @@ public:
 		new_list->right = right;
 		left->right = new_list;
 		right->left = new_list;
+	}
+public:
+	LinkedList() {
+		startElement = new list();
+		startElement->left = startElement;
+		startElement->right = startElement;
+		startElement = startElement;
+		size = 0;
 	}
 	void push(T* value) {
 		if (size == 0)
