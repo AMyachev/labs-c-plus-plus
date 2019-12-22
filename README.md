@@ -1,5 +1,5 @@
-Задание лабораторной работы номер 3, вариант 10:
+#labs-c-plus-plus
+Repository for 2nd year students who want to pass c ++ labs in an online form.
 
-1) Написать шаблонный класс, реализующий двусвязный список, содержащий указатели на объекты, с операциями манипуляции данными.
-
-2) Написать код, демонстрирующий двусвязный список над базовым типом и пользовательским.
+#Workflow
+You must create a Pull request for each lab you want to submit. Laba is considered accepted when it enters the master branch. (In the case when you edit all the comments found in the review process)
