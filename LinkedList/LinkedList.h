@@ -65,6 +65,7 @@ public:
 		size--;
 	}
 	T* operator [](int index) {
+		if (size == 0)return nullptr;
 		return(get_elem(index, startElement)->value);
 	}
 	~LinkedList() {
