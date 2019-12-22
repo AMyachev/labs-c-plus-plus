@@ -46,7 +46,6 @@ public:
 		size++;
 	}
 	void insert(int pos, T* value) {
-		list* new_list = new list();
 		list* temp = get_elem(pos, startElement);
 		addNode(temp, temp->right, temp->value);
 		temp->value = value;
