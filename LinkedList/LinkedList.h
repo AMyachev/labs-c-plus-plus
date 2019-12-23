@@ -57,7 +57,7 @@ public:
 			pointer=pointer->right;
 		}
 	}
-	LinkedList& operator =(LinkedList& copylist) {
+	LinkedList& operator =(const LinkedList& copylist) {
 		list* pointer=startElement;
 		list* copypointer = copylist.startElement;
 		if (copylist.size >= this->size) {
