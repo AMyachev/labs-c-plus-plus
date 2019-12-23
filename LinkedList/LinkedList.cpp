@@ -160,10 +160,6 @@ void menu() {
 		menu();
 	}
 	case 7: {
-		/*user_list->erase_if([](person* p) {return p->getName() == "Denis"; });
-		show_list();
-		system("pause");
-		menu();*/
 		exit(1);
 	}
 	}

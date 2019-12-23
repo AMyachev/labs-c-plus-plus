@@ -37,7 +37,6 @@ template<typename T> class LinkedList
 		if (temp == startElement) {
 			startElement = temp->right;
 		}
-		temp->value = nullptr;
 		delete(temp);
 		size--;
 	}
@@ -49,7 +48,7 @@ public:
 		startElement = startElement;
 		size = 0;
 	}
-	LinkedList(LinkedList& copylist):LinkedList() {
+	LinkedList(const LinkedList& copylist):LinkedList() {
 		list* pointer = copylist.startElement;
 		push(pointer->value);
 		pointer=pointer->right;
