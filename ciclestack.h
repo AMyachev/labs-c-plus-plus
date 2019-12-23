@@ -10,19 +10,20 @@ template <typename T>  class ciclestack
 		Node(T info) {
 			this->info = info;
 		}
-		void operator=(T info) {
-			this->info = info;
-		}
+		
 	};
 private:
 	Node *first;
 	int length;
 	Node* get_node(int index) {
-		Node *last = first;
-		for (int i = 0; i != index; i++) {
-			last = last->nextnode;
+		if (index >= 0) {
+			Node *last = first;
+			for (int i = 0; i != index; i++) {
+				last = last->nextnode;
+			}
+			return last;
 		}
-		return last;
+		else return nullptr;
 	}
 public:
 	int get_length() { return length; }
@@ -47,42 +48,46 @@ public:
 		Node *myfirst;
 		if (length > 0) {
 			firstinfo = new T(first->info);
-			myfirst = first;
-			first = first->nextnode;
-			length--;
-			get_node(length)->nextnode = first;
-			delete myfirst;
+			peek();
 			return firstinfo;
 		}
-		else return NULL;
+		else return nullptr;
+	}
+	void peek() {
+		if (length > 0) {
+			Node *myfirst;
+			myfirst = first;
+			get_node(length)->nextnode = first->nextnode;
+			length--;
+			first = first->nextnode;
+			delete myfirst;
+		}
 	}
 	void deleteelem(int index) {
-		if (index == 0) {
-			pop_first();
+		if (index >= 0) {
+			if (index == 0) {
+				peek();
+			}
+			else {
+				Node *predsearch;
+				Node *search;
+				predsearch = get_node(index - 1);
+				search = predsearch->nextnode;
+				length--;
+				predsearch->nextnode = search->nextnode;
+				delete search;
+			}
 		}
-		else {
-			Node *predsearch;
-			Node *search;
-			predsearch = get_node(index - 1);
-			search = predsearch->nextnode;
-			length--;
-			predsearch->nextnode = search->nextnode;
-			delete search;
-		}
+		else return;
 	}
 	ciclestack() {
 		first = nullptr;
 		length = 0;
 	};
 	~ciclestack() {
-		Node *predsearch = first;
-		Node *search = first;
-		for (int i = 0; i < length-1; i++) {
-			predsearch = search;
-			search = search->nextnode();
-			delete predsearch;
+		while (length > 0) {
+			deleteelem(0);
 		}
-		delete search;
 	}
 };
 
