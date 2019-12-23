@@ -23,25 +23,20 @@ public:
 	friend ostream& operator<<(ostream& os, const train &foroutput) {
 		return os << "Name:" << foroutput.name << "\nModel:" << foroutput.model<<endl;
 	}
-	void operator=(const train &copy) {
+	train operator=(const train &copy) {
 		this->model = copy.model;
 		this->name = copy.name;
 		//cout << "=";
+		return *this;
 	}
+	train(int model, string name) : model(model), name(name) {}
+	train() : model(0), name("") {}
 	train(const train &copy) {
 		this->model = copy.model;
 		this->name = copy.name;
 	}
-	train(int model, string name) {
-		this->model = model;
-		this->name = name;
-	}
 	int get_model() {
 		return this->model;
-	}
-	train() {};
-	void out() {
-		cout << this->name << " " << this->model<<"\n";
 	}
 	string get_name() {
 		return name;
@@ -52,14 +47,10 @@ int main()
 	int number=45,n,model;
 	string s;
 	int counter;
-	ciclestack<int> *stack =new ciclestack<int>();
-	ciclestack<Mystruct> *structstack = new ciclestack<Mystruct>();
 	ciclestack<train> *trainstack = new ciclestack<train>();
 	train mytrain;
 	train *train0;
-	train *train1;
 	train0 = new train();
-	train1 = train0;
 	//MENU
 	while (true) {
 		cout << "MENU\n1-ADD ELEMENT\n2-SHOW ELEMENTS\n3-DELETE ELEMENT\n4-SEARCH FOR ELEMENT\n5-SHOW NUMBERED ELEMENT\n6-POP FIRST ELEMENT\n7-SEARCH FOR ELEMENT BY ID\n0-EXIT\n";
@@ -135,14 +126,18 @@ int main()
 				cout << e.what();
 			}
 			break;
-		case 0:
-			exit(0);
-			break;
+		
 		default:
 			break;
 		}
 		system("pause");
 		system("CLS");
+		if (n == 0) {
+			trainstack->~ciclestack();
+			delete train0;
+			return 0;
+		}
+		
 	}
 	
 }
