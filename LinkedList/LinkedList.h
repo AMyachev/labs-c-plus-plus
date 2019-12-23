@@ -2,6 +2,7 @@
 template<typename T> class LinkedList
 {
 	int size;
+	typedef bool (*pred)(T*);
 	typedef struct list {
 		list* left;
 		T* value;
@@ -29,6 +30,17 @@ template<typename T> class LinkedList
 		left->right = new_list;
 		right->left = new_list;
 	}
+	void erase(list* searching_elem) {
+		list* temp = searching_elem;
+		temp->left->right = temp->right;
+		temp->right->left = temp->left;
+		if (temp == startElement) {
+			startElement = temp->right;
+		}
+		temp->value = nullptr;
+		delete(temp);
+		size--;
+	}
 public:
 	LinkedList() {
 		startElement = new list();
@@ -36,6 +48,55 @@ public:
 		startElement->right = startElement;
 		startElement = startElement;
 		size = 0;
+	}
+	LinkedList(LinkedList& copylist):LinkedList() {
+		list* pointer = copylist.startElement;
+		push(pointer->value);
+		pointer=pointer->right;
+		while (pointer != copylist.startElement) {
+			push(pointer->value);
+			pointer=pointer->right;
+		}
+	}
+	LinkedList& operator =(LinkedList& copylist) {
+		list* pointer=startElement;
+		list* copypointer = copylist.startElement;
+		if (copylist.size >= this->size) {
+			for (int i = 0; i < this->size;i++) {
+				pointer->value = copypointer->value;
+				pointer = pointer->right;
+				copypointer = copypointer->right;
+			}
+			for (int i = 0; i < copylist.size - this->size;i++) {
+				push(copypointer->value);
+				copypointer = copypointer->right;
+			}
+		}
+		else
+		{
+			for (int i = 0; i < copylist->size;i++) {
+				pointer->value = copypointer->value;
+				pointer = pointer->right;
+				copypointer = copypointer->right;
+			}
+			for (int i = 0; i < this->size - copylist.size;i++) {
+				list* temp = pointer;
+				pointer = pointer->right;
+				erase(temp);
+			}
+		}
+		return *this;
+	}
+	void erase_if(pred f) {
+		list* pointer=startElement;
+		for (int i = 0; i < size; i++) {
+			if (pred(pointer->value)) {
+				list* temp = pointer;
+				pointer = pointer->right;
+				erase(temp);
+			}else
+			pointer = pointer->right;
+		}
 	}
 	void push(T* value) {
 		if (size == 0)
@@ -54,14 +115,7 @@ public:
 	void erase(int index) {
 		if (size == 0)return;
 		list* searching_elem = get_elem(index, startElement);
-		list* temp = searching_elem;
-		temp->left->right = temp->right;
-		temp->right->left = temp->left;
-		if (temp == startElement) {
-			startElement = temp->right;
-		}
-		delete(temp);
-		size--;
+		erase(searching_elem);
 	}
 	T* operator [](int index) {
 		if (size == 0)return nullptr;

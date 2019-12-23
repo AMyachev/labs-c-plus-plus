@@ -16,6 +16,9 @@ public:
 		fname = fn;
 		sname = sn;
 	}
+	string getName() {
+		return fname;
+	}
 };
 LinkedList<int> *list;
 LinkedList<person> *user_list;
@@ -157,6 +160,10 @@ void menu() {
 		menu();
 	}
 	case 7: {
+		/*user_list->erase_if([](person* p) {return p->getName() == "Denis"; });
+		show_list();
+		system("pause");
+		menu();*/
 		exit(1);
 	}
 	}
