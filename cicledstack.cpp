@@ -14,18 +14,19 @@ struct Mystruct
 	string name;
 	int a;
 	int b;
-	
 };
 class train {
-	//конструктор присваивания 
 private:
 	int model;
 	string name;
 public:
+	friend ostream& operator<<(ostream& os, const train &foroutput) {
+		return os << "Name:" << foroutput.name << "\nModel:" << foroutput.model<<endl;
+	}
 	void operator=(const train &copy) {
 		this->model = copy.model;
 		this->name = copy.name;
-		cout << "=";
+		//cout << "=";
 	}
 	train(const train &copy) {
 		this->model = copy.model;
@@ -56,10 +57,10 @@ int main()
 	ciclestack<train> *trainstack = new ciclestack<train>();
 	train mytrain;
 	train *train0;
-	//MENU
 	train *train1;
 	train0 = new train();
 	train1 = train0;
+	//MENU
 	while (true) {
 		cout << "MENU\n1-ADD ELEMENT\n2-SHOW ELEMENTS\n3-DELETE ELEMENT\n4-SEARCH FOR ELEMENT\n5-SHOW NUMBERED ELEMENT\n6-POP FIRST ELEMENT\n7-SEARCH FOR ELEMENT BY ID\n0-EXIT\n";
 		cin >> n;
@@ -75,7 +76,7 @@ int main()
 			break;
 		case 2:
 			for (int i = 0; i < trainstack->get_length(); i++) {
-				trainstack->get_elem(i)->out();
+				cout<<*(trainstack->get_elem(i));
 			}
 			break;
 		case 3:
@@ -97,19 +98,28 @@ int main()
 			cin >> s;
 			for (int i = 0; i < trainstack->get_length(); i++) {
 				if (trainstack->get_elem(i)->get_name() == s) {
-					trainstack->get_elem(i)->out();
+					cout << *(trainstack->get_elem(i));
 				}
 			}
 			break;
 		case 5:
 			cout << "NUMBER:";
 			cin >> number;
-			trainstack->get_elem(number)->out();
+			try {
+				if (number < 0) {
+					throw IndexOutOfRange();
+				}
+				cout<<*(trainstack->get_elem(number));
+			}
+			catch (IndexOutOfRange e) {
+				cout << e.what();
+			}
 			break;
 		case 6:
 			if (trainstack->get_length() > 0) {
-				trainstack->get_first()->out();
-				trainstack->pop_first();
+				train0 = trainstack->pop_first();
+				cout<<*(train0);
+				delete train0;
 			}
 			break;
 		case 7:
@@ -119,7 +129,7 @@ int main()
 				if (number < 0) {
 					throw IndexOutOfRange();
 				} 
-				trainstack->get_elem(number)->out(); 
+				cout << *(trainstack->get_elem(number));
 			}
 			catch (IndexOutOfRange e) {
 				cout << e.what();
