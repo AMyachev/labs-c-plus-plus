@@ -1,5 +1,3 @@
-
-
 #include "pch.h"
 #include <iostream>
 #include "ciclestack.h"
@@ -19,10 +17,16 @@ struct Mystruct
 	
 };
 class train {
+	//конструктор присваивания 
 private:
 	int model;
 	string name;
 public:
+	void operator=(const train &copy) {
+		this->model = copy.model;
+		this->name = copy.name;
+		cout << "=";
+	}
 	train(const train &copy) {
 		this->model = copy.model;
 		this->name = copy.name;
@@ -56,7 +60,6 @@ int main()
 	train *train1;
 	train0 = new train();
 	train1 = train0;
-	
 	while (true) {
 		cout << "MENU\n1-ADD ELEMENT\n2-SHOW ELEMENTS\n3-DELETE ELEMENT\n4-SEARCH FOR ELEMENT\n5-SHOW NUMBERED ELEMENT\n6-POP FIRST ELEMENT\n7-SEARCH FOR ELEMENT BY ID\n0-EXIT\n";
 		cin >> n;
