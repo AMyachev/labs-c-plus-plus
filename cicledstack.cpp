@@ -26,7 +26,6 @@ public:
 	train operator=(const train &copy) {
 		this->model = copy.model;
 		this->name = copy.name;
-		//cout << "=";
 		return *this;
 	}
 	train(int model, string name) : model(model), name(name) {}
