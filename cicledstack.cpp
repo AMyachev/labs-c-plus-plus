@@ -16,10 +16,9 @@ struct Mystruct
 	int b;
 };
 class train {
-private:
+public:
 	int model;
 	string name;
-public:
 	friend ostream& operator<<(ostream& os, const train &foroutput) {
 		return os << "Name:" << foroutput.name << "\nModel:" << foroutput.model<<endl;
 	}
@@ -52,7 +51,7 @@ int main()
 	train0 = new train();
 	//MENU
 	while (true) {
-		cout << "MENU\n1-ADD ELEMENT\n2-SHOW ELEMENTS\n3-DELETE ELEMENT\n4-SEARCH FOR ELEMENT\n5-SHOW NUMBERED ELEMENT\n6-POP FIRST ELEMENT\n7-SEARCH FOR ELEMENT BY ID\n0-EXIT\n";
+		cout << "MENU\n1-ADD ELEMENT\n2-SHOW ELEMENTS\n3-DELETE ELEMENT\n4-SEARCH FOR ELEMENT\n5-SHOW NUMBERED ELEMENT\n6-POP FIRST ELEMENT\n7-SEARCH FOR ELEMENT BY ID\n9-Rise model up\n0-EXIT\n";
 		cin >> n;
 		switch (n)
 		{
@@ -125,7 +124,10 @@ int main()
 				cout << e.what();
 			}
 			break;
-		
+		case 9:
+			cout << "\nRise model up to: ";
+			cin >> number;
+			trainstack->upto(number);
 		default:
 			break;
 		}
@@ -140,4 +142,3 @@ int main()
 	}
 	
 }
-
