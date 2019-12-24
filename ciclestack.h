@@ -8,7 +8,6 @@ template <typename T>  class ciclestack
 		Node* nextnode;
 		T info;
 		Node(T info) : info(info) {};
-		Node() { std::cout << "check"; };
 	};
 private:
 	Node *first;
@@ -37,7 +36,7 @@ public:
 		else {
 			node->nextnode = first;
 			first = node;
-			get_node(length)->nextnode = first;
+			get_node(length+1)->nextnode = first;
 		}
 		length++;
 	}
