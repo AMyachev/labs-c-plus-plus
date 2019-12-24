@@ -36,7 +36,7 @@ public:
 		else {
 			node->nextnode = first;
 			first = node;
-			get_node(length+1)->nextnode = first;
+			get_node(length)->nextnode = first;
 		}
 		length++;
 	}
@@ -71,6 +71,20 @@ public:
 		}
 		else return;
 	}
+	void upto(int number) {
+		Node *node = first;
+		for (int i = 0; i < length; i++) {
+			if (node->info.model >= number) {
+				std::cout << "\nnumber already reached\n";
+				return;
+			}
+			node = node->nextnode;
+		}
+		while (node->info.model < number) {
+			node->info.model++;
+			node = node->nextnode;
+		}
+	}
 	ciclestack() {
 		first = nullptr;
 		length = 0;
@@ -81,4 +95,5 @@ public:
 		}
 	}
 };
+
 
