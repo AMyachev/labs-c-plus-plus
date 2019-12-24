@@ -7,10 +7,8 @@ template <typename T>  class ciclestack
 	{
 		Node* nextnode;
 		T info;
-		Node(T info) {
-			this->info = info;
-		}
-		
+		Node(T info) : info(info) {};
+		Node() { std::cout << "check"; };
 	};
 private:
 	Node *first;
@@ -48,29 +46,23 @@ public:
 		Node *myfirst;
 		if (length > 0) {
 			firstinfo = new T(first->info);
-			peek();
+			deleteelem(0);
 			return firstinfo;
 		}
 		else return nullptr;
 	}
-	void peek() {
-		if (length > 0) {
-			Node *myfirst;
-			myfirst = first;
-			get_node(length)->nextnode = first->nextnode;
-			length--;
-			first = first->nextnode;
-			delete myfirst;
-		}
-	}
 	void deleteelem(int index) {
 		if (index >= 0) {
+			Node *search;
 			if (index == 0) {
-				peek();
+				get_node(length)->nextnode = first->nextnode;
+				search = first;
+				length--;
+				first = first->nextnode;
+				delete search;
 			}
 			else {
 				Node *predsearch;
-				Node *search;
 				predsearch = get_node(index - 1);
 				search = predsearch->nextnode;
 				length--;
